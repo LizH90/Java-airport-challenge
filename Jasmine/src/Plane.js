@@ -8,8 +8,10 @@ function Plane(weather = new Weather(), airport) {
 
 
 Plane.prototype.land = function(airport) {
+  if (this.weather.isStormy()) {
+    throw "Too stormy to land";
+      };
   this.airport = airport;
-  console.log(this.airport);
 };
 
 Plane.prototype.takeoff = function() {

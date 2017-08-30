@@ -1,7 +1,6 @@
 describe('Plane', function() {
   var plane;
   var weather;
-  var plane2;
 
   // beforeEach(function() {
   //   plane = new Plane('Gatwick');
@@ -30,9 +29,17 @@ describe('Plane', function() {
     weather = { isStormy: function() {
       return true;
     }};
-    plane2 = new Plane(weather,'Gatwick');
-    expect(function() {plane2.takeoff()}).toThrow("Too stormy to take off");
-    expect(plane2.airport).toBe('Gatwick');
+    plane = new Plane(weather,'Gatwick');
+    expect(function() {plane.takeoff()}).toThrow("Too stormy to take off");
+    expect(plane.airport).toBe('Gatwick');
   });
 
+  it('prevents landing when weather is stormy', function () {
+    weather = { isStormy: function() {
+      return true;
+    }};
+    plane = new Plane(weather, null);
+    expect(function() {plane.land('Berlin')}).toThrow("Too stormy to land");
+    expect(plane.airport).toBe(null);
+  });
 });
